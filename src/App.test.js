@@ -32,3 +32,27 @@ test('checkbox is clicked and button is disabled/enabled', () => {
   expect(button).toBeEnabled();
 });
 
+test('disable button and enable button', () => {
+  render(<App />);
+  const button = screen.getByRole('button', { name: 'Change to blue' });
+  const checkbox = screen.getByRole('checkbox', { name: 'Disable button' });
+
+  fireEvent.click(checkbox);
+  expect(button).toHaveStyle({ backgroundColor: 'gray' });
+
+  fireEvent.click(checkbox);
+  expect(button).toHaveStyle({ backgroundColor: 'red' });
+});
+
+test('click button and disable button', () => {
+  render(<App />);
+  const button = screen.getByRole('button', { name: 'Change to blue' });
+  const checkbox = screen.getByRole('checkbox', { name: 'Disable button' });
+
+  fireEvent.click(button);
+  fireEvent.click(checkbox);
+  expect(button).toHaveStyle({ backgroundColor: 'gray' });
+
+  fireEvent.click(checkbox);
+  expect(button).toHaveStyle({ backgroundColor: 'blue' });
+});
